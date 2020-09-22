@@ -1,19 +1,23 @@
-before_script:
-    # Decrypt server key
-    - apt update && apt -y install jq
+version: 2.1
 
-    # Output CLI version and plug-in information
-    - export SALESFORCE_CLI_URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-    - export SFDX_AUTOUPDATE_DISABLE=false
-    - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-    - export SFDX_DOMAIN_RETRY=600
-    - export SFDX_LOG_LEVEL=DEBUG
-    # Install Salesforce CLI
-    - mkdir sfdx
-    - wget -qO- $SALESFORCE_CLI_URL | tar xJ -C sfdx --strip-components 1
-    - './sfdx/install'
-    - export PATH=./sfdx/$(pwd):$PATH
-    # Output CLI version and plug-in information
-    - sfdx update
-    - sfdx --version
-    - sfdx plugins
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: circleci/<language>:<version TAG>
+    steps:
+      - checkout
+      - run: echo "this is the build job"
+  test:
+    docker:
+      - image: circleci/<language>:<version TAG>
+    steps:
+      - checkout
+      - run: echo "this is the test job"
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test
