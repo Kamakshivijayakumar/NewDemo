@@ -7,23 +7,22 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: 
-        - sfdx update
+      - run: "TEST"
+       
   test:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: 
-        - sfdx update
+      - run: "TEST"
+        
   deploy:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: 
-         - sfdx update
-
+      - run: "TEST"
+        
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
