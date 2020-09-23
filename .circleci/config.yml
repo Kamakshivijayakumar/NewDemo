@@ -7,21 +7,21 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: "TEST"
+      - run:  echo "this is the build job"
        
   test:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: "TEST"
+      - run: echo "this is the build job"
         
   deploy:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: "TEST"
+      - run:  echo "this is the build job"
         
 # Orchestrate our job run sequence
 workflows:
