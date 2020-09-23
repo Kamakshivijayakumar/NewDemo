@@ -29,7 +29,15 @@ jobs:
       - image: "circleci/ruby:2.5.1-node-browsers"
     steps:      
       - checkout
-      - run: "echo \"this is the build job\""
+      - run: 
+           name: Scrach org
+           command: sfdx force:auth:jwt:grant --setdefaultdevhubusername  --clientid $SF_CONSUMER_KEY  --jwtkeyfile assets/server.key --username  $SF_USERNAME 
+                    sfdx force:org:create --setdefaultusername --definitionfile config/project-scratch-def.json --wait 10 --durationdays 1
+                    sfdx force:org:display
+                    sfdx force:source:push
+                    sfdx force:apex:test:run --wait 10 --resultformat human --codecoverage --testlevel RunLocalTests
+                    sfdx force:org:delete --noprompt
+
   test: 
     docker: 
       - image: "circleci/ruby:2.5.1-node-browsers"
