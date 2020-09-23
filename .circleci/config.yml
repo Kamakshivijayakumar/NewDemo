@@ -32,7 +32,7 @@ workflows:
       - hold:
           type: approval
           requires:
-            - build
+            - build              
             - test
       - deploy:
           requires:
